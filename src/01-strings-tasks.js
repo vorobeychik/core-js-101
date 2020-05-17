@@ -202,12 +202,12 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(width, heigth) {
+function getRectangleString(width, height) {
   return '┌'.concat('─'.repeat(width - 2)).concat('┐\n')
-    .concat(('|'.concat(' '.repeat(width - 2)).concat('|\n')).repeat(heigth - 2))
+    .concat(('│'.concat(' '.repeat(width - 2)).concat('│\n')).repeat((height - 2)))
     .concat('└')
     .concat('─'.repeat(width - 2))
-    .concat('┘');
+    .concat('┘\n');
 }
 
 
@@ -227,8 +227,17 @@ function getRectangleString(width, heigth) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  return str.split('')
+    .map((e) => {
+      if (e === '!' || e === '?' || e === ' ') { return e; }
+      if (e.toUpperCase().charCodeAt() === e.charCodeAt() && e !== ' ') {
+        return String.fromCharCode((e.charCodeAt() + 13 > 90)
+          ? (e.charCodeAt() + 13 - 26) : e.charCodeAt() + 13);
+      }
+      return String.fromCharCode((e.charCodeAt() + 13 > 122)
+        ? (e.charCodeAt() + 13 - 26) : e.charCodeAt() + 13);
+    }).join('');
 }
 
 /**
@@ -244,8 +253,9 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-
+function isString(value) {
+  if (value === null || value === undefined) { return false; }
+  return (typeof value === 'string' || value instanceof String);
 }
 
 
