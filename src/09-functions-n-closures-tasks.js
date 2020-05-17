@@ -24,7 +24,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (value) {
+  return function hero(value) {
     return f(g(value));
   };
 }
@@ -47,7 +47,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (num) { return num ** exponent; };
+  return function hero(num) { return num ** exponent; };
 }
 
 
@@ -150,8 +150,7 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  console.log(args1);
-  return function () { return args1.reduce((accum, current) => accum + current, ''); };
+  return function hero() { return args1.reduce((accum, current) => accum + current, ''); };
 }
 
 
